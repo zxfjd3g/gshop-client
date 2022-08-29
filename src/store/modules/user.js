@@ -86,16 +86,19 @@ const actions = {
     }
   },
 
-  async getUserInfo ({commit}) {
+  async getUserInfo ({commit, dispatch}) {
     const result = await reqUserInfo()
     if (result.code===200) {
       const userInfo = result.data
       // 保存到state
       commit('RECEIVE_USER_INFO', userInfo)
+    } else {
+      dispatch('logout')
+      throw new Error(result.message || '获取用户信息失败')
     }
   },
   
-  /*@todo 新增获取用户地址信息  */
+  /* 新增获取用户地址信息  */
   async getUserAddressList({commit}){
     const result = await reqUserAddressList();
     if (result.code===200) {
