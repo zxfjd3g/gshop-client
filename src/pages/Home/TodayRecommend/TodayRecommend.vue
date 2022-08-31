@@ -1,35 +1,58 @@
+<!--
+ * @Author: 朽木白
+ * @Date: 2022-08-30 08:27:15
+ * @LastEditors: 1547702880@qq.com
+ * @LastEditTime: 2022-08-31 17:01:07
+ * @Description: 
+-->
 <template>
   <div class="today-recommend">
     <div class="py-container">
-      <ul class="recommend">
-        <li class="clock">
-          <div class="time">
-            <img src="./images/clock.png" />
-            <h3>今日推荐</h3>
+      <el-skeleton :loading="true" animated style="margin: 10px 0">
+        <template slot="template">
+          <div style="display: flex;">
+            <el-skeleton-item variant="image" style="flex: 1; height: 165px" />
+            <el-skeleton-item
+              v-for="item in recommends"
+              :key="item.id"
+              variant="image"
+              style="flex: 1; height: 165px"
+            />
           </div>
-        </li>
-        <li class="banner" v-for="item in recommends" :key="item.id">
-          <img :src="item.imageUrl" />
-        </li>
-      </ul>
+        </template>
+
+        <template>
+          <ul class="recommend">
+            <li class="clock">
+              <div class="time">
+                <img src="./images/clock.png" />
+                <h3>今日推荐</h3>
+              </div>
+            </li>
+            <li class="banner" v-for="item in recommends" :key="item.id">
+              <img :src="item.imageUrl" />
+            </li>
+          </ul>
+        </template>
+      </el-skeleton>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'TodayRecommend',
   computed: {
     ...mapState({
-      recommends: state => state.home.recommends
-    })
-  }
-}
+      recommends: (state) => state.home.recommends,
+    }),
+  },
+};
 </script>
 
-<style  lang="less" scoped>
+<style lang="less" scoped>
 .today-recommend {
   .py-container {
     width: 1200px;
