@@ -1,31 +1,42 @@
+/*
+ * @Author: 朽木白
+ * @Date: 2022-08-30 08:27:15
+ * @LastEditors: 1547702880@qq.com
+ * @LastEditTime: 2022-08-31 14:55:12
+ * @Description:
+ */
 /* 
 vuex最核心的管理对象(仓库)
 */
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 // import home from './modules/home'
 // import user from './modules/user'
-import modules from './modules'
+import modules from './modules';
 
+console.log(modules);
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-const mutations = {   // 直接更新state中的数据
-  test (state, data) { // 总state
-
-  }
-}
-const actions = { // 触发mutation调用间接更新数据
-  test2 ({commit, state}, ) {
-    commit('test')
-  }
-}
+const mutations = {
+  // 直接更新state中的数据
+  test(state, data) {
+    // 总state
+  },
+};
+const actions = {
+  // 触发mutation调用间接更新数据
+  test2({ commit, state }) {
+    commit('test');
+  },
+};
 const getters = {
-  test3 (state) { // 总state
-    return state.home.categoryList
-  }
-}
+  test3(state) {
+    // 总state
+    return state.home.categoryList;
+  },
+};
 
 export default new Vuex.Store({
   // modules: {
@@ -33,8 +44,8 @@ export default new Vuex.Store({
   //   user
   // }, // vuex中包含的所有模块的对象
   // state,
-  modules,
+  ...modules,
   mutations, // 总的mutations
   actions, // 总的actions
   getters, // 总的getters
-})
+});
