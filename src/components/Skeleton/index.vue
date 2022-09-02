@@ -2,8 +2,9 @@
  * @Author: 朽木白
  * @Date: 2022-09-02 08:54:11
  * @LastEditors: 1547702880@qq.com
- * @LastEditTime: 2022-09-02 09:51:05
+ * @LastEditTime: 2022-09-02 10:35:55
  * @Description: 骨架屏组件，默认样式采用的是elment-ui@2.15.8
+ * @doc: https://element.eleme.io/2.15/#/zh-CN/component/skeleton
 -->
 <template>
   <div>
@@ -80,7 +81,6 @@ export default {
           this.uiLoading = loading;
         }
       },
-      immediate: true,
     },
   },
   data() {
