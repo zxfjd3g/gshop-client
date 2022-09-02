@@ -6,7 +6,6 @@
 // import Search from '@/pages/Search'
 // import Detail from '@/pages/Detail'
 
-
 /*
 静态import: import Home from '@/pages/Home'  ==> 打包形成一个文件
 动态import: import('@/pages/Home')  ==> 被引入的模块单独打包(生成另一个打包文件)
@@ -16,42 +15,54 @@
 1. 使用动态import, 对路由组件进行单独打包(code split: 代码分割)
 2. 配置的组件是一个函数, 只有访问对应路由时才会执行, 去请求加载对应的路由组件的打包文件
 */
-const Home = () => import('@/pages/Home')
-const Search = () => import('@/pages/Search')
+const Home = () => import('@/pages/Home');
+const Search = () => import('@/pages/Search');
 // const Detail = () => import('@/pages/Detail')
 
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
-import AddCartSuccess from '@/pages/AddCartSuccess'
-import ShopCart from '@/pages/ShopCart'
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import AddCartSuccess from '@/pages/AddCartSuccess';
+import ShopCart from '@/pages/ShopCart';
 
-import Trade from '@/pages/Trade'
-import Pay from '@/pages/Pay'
-import PaySuccess from '@/pages/PaySuccess'
-import Center from '@/pages/Center'
-import MyOrder from '@/pages/Center/MyOrder'
-import OrderDetail from '@/pages/Center/OrderDetail'
-import Refund from '@/pages/Center/Refund'
-import RefundList from '@/pages/Center/RefundList'
+import Trade from '@/pages/Trade';
+import Pay from '@/pages/Pay';
+import PaySuccess from '@/pages/PaySuccess';
+import Center from '@/pages/Center';
+import MyOrder from '@/pages/Center/MyOrder';
+import OrderDetail from '@/pages/Center/OrderDetail';
+import Refund from '@/pages/Center/Refund';
+import RefundList from '@/pages/Center/RefundList';
+import VituralList from '@/pages/VirtualGoodsList';
 
 export default [
-  { // 一个路由
+  {
+    // 一个路由
     name: 'home',
     path: '/',
-    component: Home
+    component: Home,
   },
   {
     name: 'search', // 每个路由配置都可以指定一个标识名称
-    path: '/search/:keyword?',  // 需要指定params参数, 标识名称是keyword
+    path: '/search/:keyword?', // 需要指定params参数, 标识名称是keyword
     // path: '/search/:keyword',  // 需要指定params参数, 标识名称是keyword
     component: Search,
-    props: route => ({keyword3: route.params.keyword, keyword4: route.query.keyword2, xxx: 12})
+    props: (route) => ({
+      keyword3: route.params.keyword,
+      keyword4: route.query.keyword2,
+      xxx: 12,
+    }),
+  },
+  {
+    name: 'list', // 每个路由配置都可以指定一个标识名称
+    path: '/list', // 需要指定params参数, 标识名称是keyword
+    // path: '/search/:keyword',  // 需要指定params参数, 标识名称是keyword
+    component: VituralList,
   },
   {
     path: '/login',
     component: Login,
     meta: {
-      isHideFooter: true // 是否隐藏footer的标识
+      isHideFooter: true, // 是否隐藏footer的标识
     },
     /* b.只有没有登陆, 才能查看登陆界面 */
     // beforeEnter (to, from, next) { // 路由前置守卫
@@ -69,45 +80,45 @@ export default [
     path: '/register',
     component: Register,
     meta: {
-      isHideFooter: true // 是否隐藏footer的标识
-    }
+      isHideFooter: true, // 是否隐藏footer的标识
+    },
   },
 
   {
     name: 'detail',
     path: '/detail/:id',
-    component: () => import('@/pages/Detail')
+    component: () => import('@/pages/Detail'),
   },
   {
     path: '/addcartsuccess',
     component: AddCartSuccess,
     /* c.只有携带的skuNum以及sessionStorage中有skuInfo数据, 才能查看添加购物车成功的界面 */
-    beforeEnter (to, from, next) {
-      const skuNum = to.query.skuNum
-      const skuInfo = JSON.parse(sessionStorage.getItem('SKU_INFO'))
-      console.log(skuNum, skuInfo)
+    beforeEnter(to, from, next) {
+      const skuNum = to.query.skuNum;
+      const skuInfo = JSON.parse(sessionStorage.getItem('SKU_INFO'));
+      console.log(skuNum, skuInfo);
       if (skuNum && skuInfo instanceof Object) {
-        next()
+        next();
       } else {
-        next('/shopcart')
+        next('/shopcart');
       }
-    }
+    },
   },
   {
     path: '/shopcart',
-    component: ShopCart
+    component: ShopCart,
   },
 
   {
     path: '/trade',
     component: Trade,
-    beforeEnter (to, from, next) {
-      if (from.path==='/shopcart') {
-        next()
+    beforeEnter(to, from, next) {
+      if (from.path === '/shopcart') {
+        next();
       } else {
-        next('/shopcart')
+        next('/shopcart');
       }
-    }
+    },
   },
   {
     path: '/pay',
@@ -123,13 +134,13 @@ export default [
   {
     path: '/paysuccess',
     component: PaySuccess,
-    beforeEnter (to, from, next) {
-      if (from.path==='/pay') {
-        next()
+    beforeEnter(to, from, next) {
+      if (from.path === '/pay') {
+        next();
       } else {
-        next('/pay')
+        next('/pay');
       }
-    }
+    },
   },
   {
     path: '/center',
@@ -141,21 +152,21 @@ export default [
       },
       {
         path: '',
-        redirect: 'myorder'
+        redirect: 'myorder',
       },
       {
         path: 'orderdetail/:orderId',
-        component: OrderDetail
+        component: OrderDetail,
       },
       {
         path: 'refund',
-        component: Refund
+        component: Refund,
       },
       {
         path: 'refundList',
-        component: RefundList
-      }
-    ]
+        component: RefundList,
+      },
+    ],
   },
 
   {
@@ -166,51 +177,55 @@ export default [
         path: 'event',
         component: () => import('@/pages/Communication/EventTest/EventTest'),
         meta: {
-          isHideFooter: true
+          isHideFooter: true,
         },
       },
       {
         path: 'model',
         component: () => import('@/pages/Communication/ModelTest/ModelTest'),
         meta: {
-          isHideFooter: true
+          isHideFooter: true,
         },
       },
       {
         path: 'sync',
         component: () => import('@/pages/Communication/SyncTest/SyncTest'),
         meta: {
-          isHideFooter: true
+          isHideFooter: true,
         },
       },
       {
         path: 'attrs-listeners',
-        component: () => import('@/pages/Communication/AttrsListenersTest/AttrsListenersTest'),
+        component: () =>
+          import('@/pages/Communication/AttrsListenersTest/AttrsListenersTest'),
         meta: {
-          isHideFooter: true
+          isHideFooter: true,
         },
       },
       {
         path: 'children-parent',
-        component: () => import('@/pages/Communication/ChildrenParentTest/ChildrenParentTest'),
+        component: () =>
+          import('@/pages/Communication/ChildrenParentTest/ChildrenParentTest'),
         meta: {
-          isHideFooter: true
+          isHideFooter: true,
         },
       },
       {
         path: 'scope-slot',
-        component: () => import('@/pages/Communication/ScopeSlotTest/ScopeSlotTest'),
+        component: () =>
+          import('@/pages/Communication/ScopeSlotTest/ScopeSlotTest'),
         meta: {
-          isHideFooter: true
+          isHideFooter: true,
         },
       },
       {
         path: 'provide-inject',
-        component: () => import('@/pages/Communication/ProvideInjectTest/ProvideInjectTest'),
+        component: () =>
+          import('@/pages/Communication/ProvideInjectTest/ProvideInjectTest'),
         meta: {
-          isHideFooter: true
+          isHideFooter: true,
         },
       },
     ],
-  }
-]
+  },
+];
