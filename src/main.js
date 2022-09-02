@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2022-08-30 08:27:15
  * @LastEditors: 1547702880@qq.com
- * @LastEditTime: 2022-08-31 16:28:30
+ * @LastEditTime: 2022-09-02 09:40:55
  * @Description:
  */
 import Vue from 'vue';
@@ -16,6 +16,9 @@ import './plugins';
 import * as API from '@/api';
 
 import '@/components/AddressModel';
+// 引入骨架屏
+import Skeleton from '@/components/Skeleton';
+import SkeletonItem from '@/components/Skeleton/item';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -28,6 +31,8 @@ Vue.use(ElementUI);
 // 注册全局组件
 Vue.component(TypeNav.name, TypeNav);
 Vue.component(Pagination.name, Pagination);
+Vue.component(Skeleton.name, Skeleton);
+Vue.component(SkeletonItem.name, SkeletonItem);
 
 // 创建一个vm作为总线对象挂到Vue原型对象上
 // Vue.prototype.$bus = new Vue()

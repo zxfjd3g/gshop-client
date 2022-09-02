@@ -2,17 +2,17 @@
  * @Author: 朽木白
  * @Date: 2022-08-30 08:27:15
  * @LastEditors: 1547702880@qq.com
- * @LastEditTime: 2022-08-31 17:01:07
+ * @LastEditTime: 2022-09-02 09:49:30
  * @Description: 
 -->
 <template>
   <div class="today-recommend">
     <div class="py-container">
-      <el-skeleton :loading="true" animated style="margin: 10px 0">
+      <v-skeleton :loading="true" animated style="margin: 10px 0">
         <template slot="template">
           <div style="display: flex;">
-            <el-skeleton-item variant="image" style="flex: 1; height: 165px" />
-            <el-skeleton-item
+            <v-skeleton-item variant="image" style="flex: 1; height: 165px" />
+            <v-skeleton-item
               v-for="item in recommends"
               :key="item.id"
               variant="image"
@@ -34,7 +34,7 @@
             </li>
           </ul>
         </template>
-      </el-skeleton>
+      </v-skeleton>
     </div>
   </div>
 </template>
