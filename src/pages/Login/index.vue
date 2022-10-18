@@ -43,7 +43,7 @@
                 <li><img src="./images/qq.png" alt=""></li>
                 <li><img src="./images/sina.png" alt=""></li>
                 <li><img src="./images/ali.png" alt=""></li>
-                <li><img src="./images/weixin.png" alt=""></li>
+                <li @click="handleWeixinLogin"><img src="./images/weixin.png" alt=""></li>
               </ul>
               <router-link class="register" to="/register">立即注册</router-link>
             </div>
@@ -71,7 +71,6 @@
 </template>
 
 <script>
-  import store from '@/store'
   export default {
     name: 'Login',
 
@@ -82,7 +81,14 @@
       }
     },
 
+    
+
     methods: {
+      handleWeixinLogin() {
+        const origin = window.location.origin;
+        window.location.href= `http://gmall-h5-api.atguigu.cn/api/user/weixin/login?redirect_uri=${origin}`
+      },
+
       async login () {
         // 前台表单检验
         const success = await this.$validator.validateAll() // 对所有表单项进行验证
@@ -273,6 +279,7 @@
               li {
                 float: left;
                 margin-right: 5px;
+                cursor: pointer;
               }
             }
 

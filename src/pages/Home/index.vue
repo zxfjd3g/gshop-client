@@ -38,6 +38,13 @@
     },
 
     async mounted () {
+      // 判断是否是微信扫码登陆
+      const params = new URLSearchParams(document.location.search.substring(1));
+      const token = params.get('token');
+      if (token) {
+        const name = params.get('name');
+        this.$store.dispatch('wxLogin', {name, token})
+      }
       this.$store.dispatch('getBanners')
       this.$store.dispatch('getRecommends')
       this.$store.dispatch('getFloors')

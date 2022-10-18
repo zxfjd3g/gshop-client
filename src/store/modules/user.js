@@ -67,6 +67,22 @@ const actions = {
     }
   },
 
+  /**
+   * 微信登陆
+   */
+
+  wxLogin({commit}, payload) {
+    const userInfo = {
+      nickName: payload.name
+    }
+    const token = payload.token;
+   // 保存到state
+   commit('RECEIVE_USER_INFO', userInfo)
+   commit('RECEIVE_TOKEN', token)
+   // 将token保存到local中
+   saveToken(token) 
+  },
+
   /*
     退出登陆
     logout(): 请求登出的接口成功后, 清除前台用户的信息数据
